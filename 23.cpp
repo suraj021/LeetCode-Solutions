@@ -8,6 +8,28 @@
  */
 class Solution {
 public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        
+        if( lists.size() == 0 ) {
+            return NULL;
+        }
+        
+        int first = 0;
+        int last = lists.size()-1;
+        
+        while( first < last ) {
+            int i = first, j = last;
+            
+            while( i < j ) {
+                lists[i] = this->mergeTwoLists( lists[i], lists[j] );
+                i++; j--;
+            }
+            last/= 2;
+        }
+        
+        return lists[0];
+    }
+    
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
         ListNode* dummy = new ListNode(0);
         ListNode* curr = dummy;
