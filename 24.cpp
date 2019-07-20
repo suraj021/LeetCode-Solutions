@@ -9,29 +9,26 @@
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
-        if( head== NULL )
-            return head;
-        if( head->next== NULL )
-            return head;
-            
-        ListNode* dummy= new ListNode( INT_MIN );
-        dummy->next= head;
         
-        ListNode* b= head;
-        ListNode* f= head->next;
-        ListNode* prev= dummy;
+        // if( head->next)
         
-        while( f!= NULL && b!= NULL ){
-            b->next= f->next;
-            f->next= b;
-            prev->next= f;
-            
-            prev= b;
-            b= b->next;
-            
-            if( b== NULL )
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* curr = dummy;
+        
+        while( curr->next ) {
+            ListNode* n = curr->next;
+            ListNode* m = curr->next->next;
+                  
+            if( !m ) {
                 break;
-            f= b->next;
+            }
+            
+            n->next = m->next;
+            m->next = n;
+            curr->next = m;
+            
+            curr = n;
         }
         
         return dummy->next;
