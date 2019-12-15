@@ -1,36 +1,26 @@
 class Solution {
 public:
     bool isValid(string s) {
-        int n= (int)s.length();
         
-        if( n%2== 1 )
+        if(s.length()%2)
             return false;
         
-        stack< char > st;
-        
-        for( int i= 0; i< n; ++i ){
-            if( s[i]== '(' || s[i]== '{' || s[i]== '[' ){
-                st.push( s[i] );
-            }else{
-                if( st.empty() )
-                    return false;
-                else{
-                    char c= st.top();
-                    st.pop();
+        stack<char> st;
                 
-                    if( c== '(' && s[i]!= ')' )
-                        return false;
-                    if( c== '{' && s[i]!= '}' )
-                        return false;
-                    if( c== '[' && s[i]!= ']' )
-                        return false;
-                }
-            }
+        for(char c: s){
+            cout << c << " " << st.size() << endl;
+            if(c == '(')
+                st.push(')');
+            else if(c == '{')
+                st.push('}');
+            else if(c == '[')
+                st.push(']');
+            else if(st.empty() || c != st.top())
+                return false;
+            else
+                st.pop();
         }
         
-        if( !st.empty() )
-            return false;
-        
-        return true;
+        return st.empty();
     }
 };
