@@ -10,7 +10,6 @@ class Solution {
 public:
     ListNode* insertionSortList(ListNode* head) {
         ListNode* dummy = new ListNode(INT_MIN);
-        ListNode* sortedTail = dummy;
         ListNode* curr= head;
         
         while( curr ) {
