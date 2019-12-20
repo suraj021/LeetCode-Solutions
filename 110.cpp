@@ -10,30 +10,19 @@
 class Solution {
 public:
     bool isBalanced(TreeNode* root) {
-        int height= 0;
-        return _isBalanced(root, height);
+        bool ans= true;
+        _isBalanced(root, ans);
+        
+        return ans;
     }
     
-    bool _isBalanced(TreeNode* root, int& height) {
-        if( root== NULL ) {
-            height= 0;
-            return true;
-        }
+    int _isBalanced(TreeNode* root, bool &ans){
+        if(!root)   return 0;
+        int l= _isBalanced(root->left, ans);
+        int r= _isBalanced(root->right, ans);
         
-        int lh, rh;
-        lh= rh= 0;
+        if( abs(l-r) > 1 ) ans= false;
         
-        bool lbal, rbal;
-        lbal= rbal= false;
-        
-        lbal= _isBalanced(root->left, lh);
-        rbal= _isBalanced(root->right, rh);
-        
-        height= max(lh, rh) + 1;
-        
-        if( abs(rh-lh) > 1 )
-            return false;
-        else
-            return lbal && rbal;
+        return max(l, r) + 1;
     }
 };

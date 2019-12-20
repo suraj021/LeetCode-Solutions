@@ -1,30 +1,26 @@
 class Solution {
 public:
     string countAndSay(int n) {
-        char c[]= { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-        string s= "1";
+        if(n== 1) return "1";
         
-        while( --n ){
-            string t= "";
-            int l= (int)s.length();
-            
-            for( int i= 0; i< l;  ){
+        string prev= "1";
+        
+        while(n-- > 1){
+            string newStr="";
+            for(int i= 0; i< prev.length();){
+                int c= 1;
                 int j= i+1;
-                while( j < l && s[j]== s[i] )
-                    j++;
-                
-                j--;
-                
-                //cout << c[j-i] << s[i];
-                
-                t= t + c[j-i] + s[i];
-                i= j+1;
+                // cout << prev[i] << " " << c << endl;
+                while(j < prev.length() && prev[j] == prev[i]){
+                    c++; j++;
+                }
+                // cout << c << "\n";
+                newStr+= to_string(c) + prev[i];
+                i= j;
             }
-            
-            s= t;
-            cout << s << ' ' ;
+            prev= newStr;
         }
         
-        return s;
+        return prev;
     }
 };

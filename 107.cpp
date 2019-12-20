@@ -11,21 +11,18 @@ class Solution {
 public:
     vector<vector<int>> levelOrderBottom(TreeNode* root) {
         vector<vector<int>> lob;
-        _levelOrderBottom(root, 0, lob);
-        reverse(lob.begin(), lob.end());
+        _levelOrderBottom(root, lob, 1);
         
         return lob;
     }
     
-    void _levelOrderBottom(TreeNode* root, int depth, vector<vector<int>>& lob){
-        if( root== NULL )   return;
-        
-        if( lob.size() == depth ){
-            lob.push_back(vector<int>());
+    void _levelOrderBottom(TreeNode* root, vector<vector<int>> &lob, int h){
+        if(!root)   return;
+        if(h > lob.size()){
+            lob.insert(lob.begin(), vector<int>());
         }
-        
-        lob[depth].push_back(root->val);
-        _levelOrderBottom(root->left, depth+1, lob);
-        _levelOrderBottom(root->right, depth+1, lob);
+        _levelOrderBottom(root->left, lob, h+1);
+        _levelOrderBottom(root->right, lob, h+1);
+        lob[lob.size()-h].push_back(root->val);
     }
 };

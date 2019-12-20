@@ -1,21 +1,13 @@
 class Solution {
 public:
     int lengthOfLastWord(string s) {
-        int n= (int)s.length();
+        stringstream ss(s);
+        string word;
         
-        if( n== 0 )
-            return 0;
-        int i= n-1;
-        
-        while( s[i]== ' ' )
-            i--;
-        
-        int j= i;
-        
-        for( ; i>= 0; --i ){
-            if( s[i]== ' ' )
-                break;
+        while(ss >> word){
+            cout << word << endl;
         }
-        return j-i;
+        
+        return word.length();
     }
 };

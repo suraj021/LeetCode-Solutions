@@ -42,4 +42,14 @@ public:
         
         return mp[root];
     }
+
+    TreeNode* pruneTreeRecursive(TreeNode* root) {
+        if(!root) return NULL;
+        root->left= pruneTreeRecursive(root->left);
+        root->right= pruneTreeRecursive(root->right);
+        
+        if(!root->left && !root->right && root->val == 0) return NULL;
+        
+        return root;
+    }
 };
