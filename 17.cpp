@@ -1,32 +1,34 @@
 class Solution {
 public:
     vector<string> letterCombinations(string digits) {
-        string keys[]= { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
-        vector< string > ans;
-        int n= digits.length(), level= 0;
-        string s= "";
+        map<char, string> mp;
         
-        if( n== 0 )
-            return ans;
+        mp['2']= "abc";
+        mp['3']= "def";
+        mp['4']= "ghi";
+        mp['5']= "jkl";
+        mp['6']= "mno";
+        mp['7']= "pqrs";
+        mp['8']= "tuv";
+        mp['9']= "wxyz";
         
-        solution( ans, keys, digits, level, n, s );
+        vector<string> ans;
+        
+        if(digits.length() == 0) return ans;
+        
+        _letterCombinations(digits, "", 0, mp, ans);
         
         return ans;
     }
     
-    void solution( vector<string> &ans, string keys[], string digits, int level, int n, string &s ){
+    void _letterCombinations(string &digits, string s, int index, map<char, string>& mp, vector<string> &ans){
+        if(index >= digits.length()){
+            ans.push_back(s);
+            return;
+        }
         
-        if( level== n ){
-            ans.push_back( s );
-            return ;
-        }   
-        
-        int x= digits[level] - '0';
-        
-        for( int i= 0; i< keys[x].length(); ++i ){
-            s= s + keys[x][i];
-            solution( ans, keys, digits, level+1, n, s );
-            s.pop_back();
+        for(char c: mp[digits[index]]){
+            _letterCombinations(digits, s + c, index+1, mp, ans);
         }
     }
 };
