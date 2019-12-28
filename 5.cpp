@@ -42,4 +42,34 @@ public:
         
         return s.substr( id, len );
     }
+
+    // O(n^2) method which is extension of counting of palindromic substrings in a string
+    string _longestPalindrome(string s) {
+        if(s.length() <= 1) return s;
+        
+        int ans= 1;
+        int n= (int)s.length();
+        int start, end;
+        start= end= 0;
+
+        for(int i= 0; i< n; ++i){
+            // cout << start << " " << end << " after: " ;
+            for(int l= i, r= i; l>= 0 && r< n && s[l] == s[r]; --l, ++r){
+                if(r-l+1 > ans){
+                    ans= r-l+1;
+                    start= l; end= r;
+                }
+            }
+            for(int l= i, r= i+1; l>= 0 && r < n && s[l] == s[r]; --l, ++r){
+                if(r-l+1 > ans){
+                    ans= r-l+1;
+                    start= l; end= r;
+                }
+            }
+            
+            // cout << start << " " << end << endl;
+        }
+        
+        return s.substr(start, end-start+1);
+    }
 };
